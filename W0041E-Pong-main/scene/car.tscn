@@ -1,0 +1,379 @@
+[gd_scene load_steps=19 format=3 uid="uid://vioxj3qvvl3f"]
+
+[ext_resource type="PackedScene" uid="uid://dpvh030tyehpb" path="res://scene/FBX format/platform.fbx" id="1_l8qdw"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tphm3"]
+albedo_color = Color(0.3553136, 0.35531354, 0.35531357, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_a1hbt"]
+material = SubResource("StandardMaterial3D_tphm3")
+height = 0.5
+radial_segments = 6
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x2b5g"]
+albedo_color = Color(0.6255479, 0.31584558, 0.08141797, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_xma8q"]
+material = SubResource("StandardMaterial3D_x2b5g")
+top_radius = 0.25
+bottom_radius = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ohb84"]
+albedo_color = Color(0.33126393, 0.21974578, 0.14420399, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_c3dgk"]
+material = SubResource("StandardMaterial3D_ohb84")
+size = Vector3(1.25, 0.5, 3)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0yaa4"]
+albedo_color = Color(0.5921569, 0.50980395, 0.4392157, 0.9764706)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_omjov"]
+material = SubResource("StandardMaterial3D_0yaa4")
+top_radius = 0.15
+bottom_radius = 0.15
+height = 2.971
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l8qdw"]
+size = Vector3(2.8192139, 0.2758789, 2.5462646)
+
+[sub_resource type="Animation" id="Animation_l8qdw"]
+loop_mode = 1
+markers = [{
+"color": Color(1, 1, 1, 1),
+"name": &"new_marker",
+"time": 1.0
+}]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("paddle/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("paddle/MeshInstance3D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("paddle/MeshInstance3D3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("paddle/MeshInstance3D4:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("paddle/flag-pirate-pennant:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("paddle/flag-pennant:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_x2b5g"]
+resource_name = "bounce"
+length = 0.5
+
+[sub_resource type="Animation" id="Animation_a1hbt"]
+resource_name = "godown"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("paddle/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 1.5707964), Vector3(3.1415927, 0, 1.5707964)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("paddle/MeshInstance3D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 1.5707964), Vector3(3.1415927, 0, 1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("paddle/MeshInstance3D3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 1.5707964), Vector3(3.1415927, 0, 1.5707964)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("paddle/MeshInstance3D4:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 1.5707964), Vector3(3.1415927, 0, 1.5707964)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("paddle/flag-pirate-pennant:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707964, 0), Vector3(0, 1.8325957, 0), Vector3(0, 1.3089969, 0), Vector3(0, 1.5707964, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("paddle/flag-pennant:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3333, 0.6667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.5707964, 0), Vector3(0, 1.8325957, 0), Vector3(0, 1.3089969, 0), Vector3(0, 1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_tphm3"]
+resource_name = "goup"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("paddle/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("paddle/MeshInstance3D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("paddle/MeshInstance3D3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("paddle/MeshInstance3D4:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("paddle/flag-pirate-pennant:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3333, 0.6667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.8325957, 0), Vector3(0, -1.3089969, 0), Vector3(0, -1.5707964, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("paddle/flag-pennant:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 0.3333, 0.6667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.8325957, 0), Vector3(0, -1.3089969, 0), Vector3(0, -1.5707964, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_x2b5g"]
+_data = {
+&"RESET": SubResource("Animation_l8qdw"),
+&"bounce": SubResource("Animation_x2b5g"),
+&"godown": SubResource("Animation_a1hbt"),
+&"goup": SubResource("Animation_tphm3")
+}
+
+[sub_resource type="Animation" id="Animation_ohb84"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platform/platform:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_xma8q"]
+resource_name = "bounce"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("platform/platform:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.7853982, 0, 0), Vector3(-0.7853982, 0, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c3dgk"]
+_data = {
+&"RESET": SubResource("Animation_ohb84"),
+&"bounce": SubResource("Animation_xma8q")
+}
+
+[node name="Node3D" type="Node3D"]
+
+[node name="paddle" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(-7.86805e-08, 1.8, 0, -1.8, -7.86805e-08, 0, 0, 0, 1.8, 1, 0, 1.5)
+mesh = SubResource("CylinderMesh_a1hbt")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(-7.86805e-08, 1.8, 0, -1.8, -7.86805e-08, 0, 0, 0, 1.8, -1, 0, 1.5)
+mesh = SubResource("CylinderMesh_a1hbt")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(-7.86805e-08, 1.8, 0, -1.8, -7.86805e-08, 0, 0, 0, 1.8, 1, 0, -1.5)
+mesh = SubResource("CylinderMesh_a1hbt")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(-7.86805e-08, 1.8, 0, -1.8, -7.86805e-08, 0, 0, 0, 1.8, -1, 0, -1.5)
+mesh = SubResource("CylinderMesh_a1hbt")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, -1.4968381)
+mesh = SubResource("CylinderMesh_xma8q")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 0, 0, 1.5031619)
+mesh = SubResource("CylinderMesh_xma8q")
+
+[node name="MeshInstance3D7" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00072592497, 0)
+mesh = SubResource("BoxMesh_c3dgk")
+
+[node name="MeshInstance3D8" type="MeshInstance3D" parent="paddle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6748015, 0)
+mesh = SubResource("CylinderMesh_omjov")
+
+[node name="platform" parent="." instance=ExtResource("1_l8qdw")]
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, -0.09389526, 1.8694875, -0.045789957)
+
+[node name="platform" parent="platform" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.027428389, 0.09389526, 0.045789957)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="platform/platform" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="platform/platform/CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0033569336, 0.09692383, -0.003112793)
+shape = SubResource("BoxShape3D_l8qdw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_x2b5g")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_c3dgk")
+}
+
+[editable path="platform"]

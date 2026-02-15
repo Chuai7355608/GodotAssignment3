@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://dwqmrwfy45ffw"]
+
+[ext_resource type="PackedScene" uid="uid://buceht25ke8xv" path="res://scene/FBX format/ship-large.fbx" id="1_nblw5"]
+
+[node name="ship-large" instance=ExtResource("1_nblw5")]

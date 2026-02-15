@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bjkaucdcljcw8"]
+
+[ext_resource type="PackedScene" uid="uid://8pi4507a5p5a" path="res://scene/FBX format/cannon-ball.fbx" id="1_dafbn"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dafbn"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dafbn"]
+cull_mode = 2
+albedo_color = Color(0.91398996, 0.119024076, 0.0918302, 1)
+use_particle_trails = true
+
+[sub_resource type="TubeTrailMesh" id="TubeTrailMesh_2kv4x"]
+material = SubResource("StandardMaterial3D_dafbn")
+radius = 0.05
+radial_steps = 14
+
+[node name="cannon-ball" instance=ExtResource("1_dafbn")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="1"]
+lifetime = 0.2
+fixed_fps = 120
+transform_align = 2
+trail_enabled = true
+trail_lifetime = 2.0
+process_material = SubResource("ParticleProcessMaterial_dafbn")
+draw_pass_1 = SubResource("TubeTrailMesh_2kv4x")
