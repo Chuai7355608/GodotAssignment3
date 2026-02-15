@@ -1,0 +1,8 @@
+Based on the representation and polish, is something that is expected from the metaphors or treatment that feels missing? 
+
+I first thought I can do something like pirate fight on the ship and Bounce the connon ball, use the ship as scene, but then I found it s kinda impossible to do that in such a short period of time, so after that I change the version into the scene u cna see now, but even for now I still feel there s so much can be improved, for example the animation for the ship and water, to make it feel like actually on the sea, drag effect of my Cannonball can be improved, the car that use for Bounce now make no sense how it moves.
+
+
+Based on the representation and polish, How would you like the mechanics to change?
+
+mabe do something like if u Catch the ball you can choose the angle to shoot it or some thing like scene distroy part that would make game more fun.
