@@ -349,9 +349,6 @@ visible = false
 material_override = ExtResource("1_y0gck")
 mesh = SubResource("QuadMesh_5lwcm")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Level"]
-transform = Transform3D(-0.25931507, 0.523357, -0.8116978, -0.8492813, -0.52375114, -0.06637618, -0.45986605, 0.6721475, 0.580294, -0.0830178, 16.312595, -1.38534)
-
 [node name="Centerline" type="Node3D" parent="Level"]
 visible = false
 
@@ -573,6 +570,9 @@ mesh = SubResource("SphereMesh_idfya")
 [node name="Node3D" parent="." instance=ExtResource("3_yvltx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.08703625, -1.3010709, -0.11339235)
 
+[node name="DirectionalLight3D" parent="Node3D" index="1"]
+transform = Transform3D(0.940128, 0.07204817, -0.33311898, 0.27305126, -0.7441514, 0.6096573, -0.20396626, -0.6641145, -0.71927035, 0, 5.395754, 0)
+
 [node name="MeshInstance3D" parent="Node3D" index="2"]
 visible = true
 
@@ -618,6 +618,13 @@ stream = ExtResource("12_i23wu")
 [node name="music" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("13_bohxn")
 autoplay = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.09803848, 0.9082232, 0.4068404, -0.24102946, -0.37496874, 0.89515543, 0.96555334, -0.18582019, 0.18214723, -2.1963058, 7.9556084, -1.38534)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_normal_bias = 1.571
+shadow_transmittance_bias = 5.029
 
 [editable path="PaddleController/L/platform"]
 [editable path="PaddleController/R/platform"]
