@@ -3,14 +3,26 @@ using System;
 
 public partial class PongLogic : Node
 {
+
+    [Export]
+    public CpuParticles3D effects;
     [Export]
     public Camera3D camera;
+    
+    [Export]
+    public CollisionShape3D cameraMoveArea;
+    
 
     [Export]
     public Node3D leftPaddle;
 
     [Export]
     public Node3D rightPaddle;
+    
+    [Export]public Node3D L_car;
+    [Export]public Node3D R_car;
+    [Export]public Node3D LP;
+    [Export]public Node3D RP;
     
     [Export]
     public float PaddleCollisionWidth = 0.2f;
@@ -73,12 +85,37 @@ public partial class PongLogic : Node
 
     public bool is_played = false;
 
+    private float leftBoundX;
+    private float rightBoundX;
+    
+    public int GameMode;
+    
+    [Export] public Node3D all_scene_item;
+    [Export] public MeshInstance3D Background;
+    [Export] public Node3D Centerline;
+    [Export] public MeshInstance3D cannonball;
+    [Export] public GpuParticles3D tail;
+    [Export] public MeshInstance3D whiteball;
+
+
+
+
+
+    //camera settings
+
+    private float breathTime = 0f;
+    private float breathRotateAmplitude = 0.01f;
+    private float breathFrequency = 1f;
+    
+
     public override void _Ready()
     {
         leftPaddleX = leftPaddle.GlobalPosition.X;
         rightPaddleX = rightPaddle.GlobalPosition.X;
         parabolaA = (ballHeight - ballPeakHeight) / (leftPaddleX * leftPaddleX);
         InitMatch();
+        GetMoveAreaPosition();
+        GameMode = 1;
     }
 
     public override void _Process(double delta)
@@ -89,23 +126,135 @@ public partial class PongLogic : Node
         CheckPaddleCollision();
         CheckForScore();
 
+        if (GameMode == 1)
+        {
+            UpdateCameraPosition((float)delta);
+        }
+        
+        
     }
 
     // Ball movement with speed adjustments
     public void BallMovement(float delta)
     {
         ball.Translate(ballVelocity * delta);
-        UpdateBallParabolaHeight();
+        if (GameMode == 1)
+        {
+            UpdateBallParabolaHeight();
+        }
+        else 
+        {
+            Vector3 pos = ball.GlobalPosition;
+            pos.Y = ballHeight;
+            ball.GlobalPosition = pos;
+        }
         bool outOfBoundsTop = ball.Position.Z > tableSize.Y / 2.0f;
         bool outOfBoundsBottom = ball.Position.Z < -tableSize.Y / 2.0f;
         if (outOfBoundsTop && ballVelocity.Z > 0.0f || outOfBoundsBottom && ballVelocity.Z < 0.0f)
         {
             ballVelocity.Z *= -1;
-            // Tween tween = CreateTween();
-            // tween.TweenProperty(camera, "z_offset", 0.1f, 0.05f);
-            // tween.TweenProperty(camera, "z_offset", -0.1f, 0.05f);
-            // tween.TweenProperty(camera, "z_offset", 0.0f, 0.05f);
         }
+    }
+    
+    public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventKey eventKey && eventKey.Pressed && !eventKey.Echo)
+        {
+            if (eventKey.Keycode == Key.Space) OnSpacePressed();
+        }
+    }
+
+
+
+    //switch scene
+    public void OnSpacePressed()
+    {
+        if (GameMode == 1)
+        {
+            AudioServer.SetBusMute(0, true);
+            all_scene_item.Visible = false;
+            Background.Visible = true;
+            Centerline.Visible = true;
+            cannonball.Visible = false;
+            whiteball.Visible = true;
+            tail.Visible = false;
+            L_car.Visible = false;
+            R_car.Visible = false;
+            LP.Visible = true;
+            RP.Visible = true;
+            effects.Visible = false;
+            
+            GameMode = 0;
+        }
+
+        else if (GameMode == 0)
+        {
+            AudioServer.SetBusMute(0, false);
+            all_scene_item.Visible = true;
+            Background.Visible = false;
+            Centerline.Visible = false;
+            cannonball.Visible = true;
+            whiteball.Visible = false;
+            tail.Visible = true;
+            L_car.Visible = true;
+            R_car.Visible = true;
+            LP.Visible = false;
+            RP.Visible = false;
+            effects.Visible = true;
+            
+            GameMode = 1;
+        }
+        
+    }
+    public void GetMoveAreaPosition()
+    {
+        float moveareacenterX = cameraMoveArea.GlobalPosition.X;
+        float width = ((BoxShape3D)cameraMoveArea.Shape).Size.X;
+        float halfWidth = width / 2.0f;
+        leftBoundX = moveareacenterX - halfWidth; 
+        rightBoundX = moveareacenterX + halfWidth;
+    }
+
+
+    //cameras
+    public void UpdateCameraPosition(float delta)
+    {
+        float ball_X = ball.GlobalPosition.X;
+        float camera_X = camera.GlobalPosition.X;
+        float camera_Rotation_Z = camera.Rotation.Z;
+        float camera_Rotation_X = camera.Rotation.X;
+        if (leftBoundX <= ball_X && rightBoundX >= ball_X)
+        {
+            if (ball_X > camera_X)
+            {
+                camera_X += 0.0005f;
+                // camera_Rotation_Y -= 0.0001f;
+                // camera_Rotation_Z += 0.0001f;
+            }
+
+            if (ball_X < camera_X)
+            {
+                camera_X -= 0.0005f;
+                // camera_Rotation_Y += 0.0001f;
+                // camera_Rotation_Z -= 0.0001f;
+            }
+            camera.GlobalPosition = new Vector3(camera_X, camera.GlobalPosition.Y, camera.GlobalPosition.Z);
+            //camera.Rotation = new Vector3(camera_Rotation_X, camera.Rotation.Y, camera_Rotation_Z);
+
+            breathTime += delta;
+    
+
+            Mathf.Sin(breathTime * breathFrequency * 2 * Mathf.Pi);
+            float breathRotateZ = Mathf.Sin(breathTime * breathFrequency * 2 * Mathf.Pi) * breathRotateAmplitude;
+    
+
+            camera.Rotation = new Vector3(
+                camera.Rotation.X,
+                camera.Rotation.Y,
+                breathRotateZ
+            );
+        }
+        
     }
 
     public void UpdateBallParabolaHeight()
@@ -164,7 +313,8 @@ public partial class PongLogic : Node
     // Initialize match and set ball starting velocity
     public void InitMatch()
     {
-        ball.GlobalPosition = new Vector3(3, ballPeakHeight,0);
+        float spawnY = (GameMode == 0) ? ballHeight : ballPeakHeight;
+        ball.GlobalPosition = new Vector3(3, spawnY,0);
         float angle = Mathf.DegToRad(random.Next(-30, 30));
         int horizontalDirection = -1;//random.Next(0, 2) == 0 ? 1 : -1;
         float velocityX = horizontalDirection * Mathf.Cos(angle);
@@ -232,10 +382,16 @@ private void CheckPaddleCollision()
                 bounce.Play();
 
             }
-            Tween tween = CreateTween();
-            tween.TweenProperty(camera, "h_offset", 0.1f, 0.05f);
-            tween.TweenProperty(camera, "h_offset", -0.1f, 0.05f);
-            tween.TweenProperty(camera, "h_offset", 0.0f, 0.05f);
+
+            //bounce shake
+            if (GameMode == 1)
+            {
+                Tween tween = CreateTween();
+                tween.TweenProperty(camera, "h_offset", 0.1f, 0.05f);
+                tween.TweenProperty(camera, "h_offset", -0.1f, 0.05f);
+                tween.TweenProperty(camera, "h_offset", 0.0f, 0.05f);
+            }
+            
             float distanceFromCenter = ball.GlobalPosition.Z - paddleCenterZ;
             float maxAngle = 75.0f;  
             float angle = Mathf.DegToRad(maxAngle * (distanceFromCenter / paddleHalfSizeZ));
