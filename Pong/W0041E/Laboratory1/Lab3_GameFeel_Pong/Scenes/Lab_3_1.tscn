@@ -56,6 +56,21 @@ height = 2.971
 [sub_resource type="BoxShape3D" id="BoxShape3D_l8qdw"]
 size = Vector3(2.8192139, 0.2758789, 2.5462646)
 
+[sub_resource type="Animation" id="Animation_i23wu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PaddleController/L/L_car/platform/platform:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_bohxn"]
 resource_name = "bounce"
 length = 0.5
@@ -72,88 +87,10 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-0.7853982, 0, 0), Vector3(0.7853982, 0, 0), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_i23wu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PaddleController/L/L_car/platform/platform:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_3wcaf"]
 _data = {
 &"RESET": SubResource("Animation_i23wu"),
 &"bounce": SubResource("Animation_bohxn")
-}
-
-[sub_resource type="Animation" id="Animation_t374w"]
-resource_name = "goup"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D2:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D3:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D4:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("PaddleController/L/L_car/paddle/flag-pirate-pennant:rotation")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.3333, 0.6667, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.3089969, 0), Vector3(0, -1.8325957, 0), Vector3(0, -1.5707964, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_8tymr"]
@@ -283,21 +220,12 @@ tracks/4/keys = {
 "values": [Vector3(0, 1.5707964, 0), Vector3(0, 1.8325957, 0), Vector3(0, 1.3089969, 0), Vector3(0, 1.5707964, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_f0pk6"]
-_data = {
-&"RESET": SubResource("Animation_8tymr"),
-&"godown": SubResource("Animation_42bqh"),
-&"goup": SubResource("Animation_t374w")
-}
-
-[sub_resource type="BoxMesh" id="BoxMesh_bohxn"]
-
-[sub_resource type="Animation" id="Animation_dbhch"]
+[sub_resource type="Animation" id="Animation_t374w"]
 resource_name = "goup"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D:rotation")
+tracks/0/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -309,7 +237,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D2:rotation")
+tracks/1/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D2:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -321,7 +249,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D3:rotation")
+tracks/2/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D3:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -333,7 +261,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D4:rotation")
+tracks/3/path = NodePath("PaddleController/L/L_car/paddle/MeshInstance3D4:rotation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -345,7 +273,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("PaddleController/R/R_car/paddle/flag-pennant:rotation")
+tracks/4/path = NodePath("PaddleController/L/L_car/paddle/flag-pirate-pennant:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -354,6 +282,15 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.3089969, 0), Vector3(0, -1.8325957, 0), Vector3(0, -1.5707964, 0)]
 }
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_f0pk6"]
+_data = {
+&"RESET": SubResource("Animation_8tymr"),
+&"godown": SubResource("Animation_42bqh"),
+&"goup": SubResource("Animation_t374w")
+}
+
+[sub_resource type="BoxMesh" id="BoxMesh_bohxn"]
 
 [sub_resource type="Animation" id="Animation_7abgr"]
 length = 0.001
@@ -481,11 +418,89 @@ tracks/4/keys = {
 "values": [Vector3(0, 1.5707964, 0), Vector3(0, 1.8325957, 0), Vector3(0, 1.3089969, 0), Vector3(0, 1.5707964, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_dbhch"]
+resource_name = "goup"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D2:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D3:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PaddleController/R/R_car/paddle/MeshInstance3D4:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, -1.5707964), Vector3(-3.1415927, 0, -1.5707964)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PaddleController/R/R_car/paddle/flag-pennant:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.3333, 0.6667, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, -1.5707964, 0), Vector3(0, -1.3089969, 0), Vector3(0, -1.8325957, 0), Vector3(0, -1.5707964, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_f1cli"]
 _data = {
 &"RESET": SubResource("Animation_7abgr"),
 &"godown": SubResource("Animation_ay74r"),
 &"goup": SubResource("Animation_dbhch")
+}
+
+[sub_resource type="Animation" id="Animation_t67ow"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PaddleController/R/R_car/platform/platform:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_4na1f"]
@@ -502,21 +517,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0.7853982, 0, 0), Vector3(-0.7853982, 0, 0), Vector3(0, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_t67ow"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PaddleController/R/R_car/platform/platform:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_jflfd"]

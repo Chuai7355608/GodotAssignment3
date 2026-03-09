@@ -89,6 +89,12 @@ public partial class PongLogic : Node
     private float rightBoundX;
     
     public int GameMode;
+
+    private Vector3 originalBallScale = new Vector3(1, 1, 1);
+    [Export] private float maxStretchAmount = 0.9f;
+    [Export] private float stretchLerpSpeed = 2.0f;
+
+    private float stretchTimer = 0f;
     
     [Export] public Node3D all_scene_item;
     [Export] public MeshInstance3D Background;
@@ -102,7 +108,7 @@ public partial class PongLogic : Node
 
 
     //camera settings
-
+    private Vector3 originalCameraRotation;
     private float breathTime = 0f;
     private float breathRotateAmplitude = 0.01f;
     private float breathFrequency = 1f;
@@ -113,8 +119,11 @@ public partial class PongLogic : Node
         leftPaddleX = leftPaddle.GlobalPosition.X;
         rightPaddleX = rightPaddle.GlobalPosition.X;
         parabolaA = (ballHeight - ballPeakHeight) / (leftPaddleX * leftPaddleX);
+        originalBallScale = ball.Scale;
         InitMatch();
         GetMoveAreaPosition();
+         originalBallScale = new Vector3(1, 1, 1);
+        stretchTimer = 0f;
         GameMode = 1;
     }
 
@@ -130,6 +139,10 @@ public partial class PongLogic : Node
         {
             UpdateCameraPosition((float)delta);
         }
+
+        UpdateBallSquashAndStretch((float)delta);
+
+        GD.Print(ball.Scale);
         
         
     }
@@ -153,7 +166,10 @@ public partial class PongLogic : Node
         if (outOfBoundsTop && ballVelocity.Z > 0.0f || outOfBoundsBottom && ballVelocity.Z < 0.0f)
         {
             ballVelocity.Z *= -1;
+            ApplyWallCollisionStretch();
         }
+
+        UpdateBallSquashAndStretch(delta);
     }
     
     public override void _Input(InputEvent @event)
@@ -227,14 +243,14 @@ public partial class PongLogic : Node
         {
             if (ball_X > camera_X)
             {
-                camera_X += 0.0005f;
+                camera_X += 0.002f;
                 // camera_Rotation_Y -= 0.0001f;
                 // camera_Rotation_Z += 0.0001f;
             }
 
             if (ball_X < camera_X)
             {
-                camera_X -= 0.0005f;
+                camera_X -= 0.002f;
                 // camera_Rotation_Y += 0.0001f;
                 // camera_Rotation_Z -= 0.0001f;
             }
@@ -321,6 +337,9 @@ public partial class PongLogic : Node
         float velocityZ = Mathf.Sin(angle);
         ballVelocity = new Vector3(velocityX, 0, velocityZ) * ballSpeed;
         fire.Play();
+
+        ResetBallScale();
+        PlayRestartCameraAnimation();
     }
 
     // Restart match
@@ -383,6 +402,8 @@ private void CheckPaddleCollision()
 
             }
 
+            ball.Scale = originalBallScale;
+
             //bounce shake
             if (GameMode == 1)
             {
@@ -398,6 +419,17 @@ private void CheckPaddleCollision()
 
             ballVelocity.Z = Mathf.Sin(angle) * ballSpeed;
             ballVelocity = ballVelocity.Normalized() * ballSpeed;
+
+            bool isSmash = (targetPaddle == leftPaddle && leftPaddleVerticalVelocity > 0.07f) || 
+                               (targetPaddle == rightPaddle && rightPaddleVerticalVelocity > 0.07f);
+            if (isSmash)
+                {
+                    ApplySmashExaggeration();
+                }
+            else
+                {
+                    ApplyBallCollisionSquash();
+                }
 
 
 			if(leftPaddleVerticalVelocity > 0.07f && targetPaddle == leftPaddle)
@@ -437,4 +469,79 @@ private void CheckPaddleCollision()
         return ballVelocity;
     }
 
+
+    private void UpdateBallSquashAndStretch(float delta)
+    {
+
+  
+        stretchTimer += delta;
+    
+    
+        float stretchProgress = Mathf.Clamp(stretchTimer * stretchLerpSpeed,0,1);
+        float currentStretch = 1 + (maxStretchAmount * stretchProgress); // 1 → 1+maxStretchAmount
+    
+
+        Vector3 newScale = new Vector3
+        (
+            currentStretch, 
+            1 - (maxStretchAmount * stretchProgress * 0.5f),
+            1 
+        );
+    
+
+        ball.Scale = ball.Scale.Lerp(newScale, delta * 1f);
+    }
+
+    private void ApplyWallCollisionStretch()
+    {
+        Tween tween = CreateTween();
+    
+        tween.TweenProperty(ball, "scale", new Vector3(1.15f, 0.85f, 1.15f), 0.005f);
+        tween.TweenProperty(ball, "scale", originalBallScale, 0.07f);
+
+        stretchTimer = 0f;
+    }
+
+
+    private void ApplyBallCollisionSquash()
+    {
+        Tween tween = CreateTween();
+
+        tween.TweenProperty(ball, "scale", originalBallScale * new Vector3(1.2f, 0.8f, 1.2f), 0.05f);
+
+        tween.TweenProperty(ball, "scale", originalBallScale, 0.1f);
+    }
+
+    private void ApplySmashExaggeration()
+    {
+        Tween tween = CreateTween();
+
+        tween.TweenProperty(ball, "scale", originalBallScale, 0.01f);
+
+        tween.TweenProperty(ball, "scale", new Vector3(1.1f, 0.9f, 1.1f), 0.04f);
+        tween.TweenProperty(ball, "scale", originalBallScale, 0.06f);
+        
+        stretchTimer = 0f;
+    }
+
+
+    private void ResetBallScale()
+    {
+        ball.Scale = originalBallScale;
+    }
+
+
+    private void PlayRestartCameraAnimation()
+    {
+        Tween tween = CreateTween();
+
+        Vector3 originalCamPos = camera.GlobalPosition;
+        Vector3 zoomOutPos = originalCamPos + new Vector3(0, 0.1f, 0.2f);
+        tween.TweenProperty(camera, "global_position", zoomOutPos, 0.9f);
+        tween.TweenProperty(camera, "global_position", originalCamPos, 0.8f);
+
+        //tween.Parallel().TweenProperty(camera, "rotation", new Vector3(0.1f, camera.Rotation.Y, 0), 0.5f);
+        //tween.Parallel().TweenProperty(camera, "rotation", originalCameraRotation, 0.8f);
+    }
 }
+
